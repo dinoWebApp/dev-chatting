@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    let nickCheck = false;
+    let idCheck = false;
+    $(function() {
+      $('#nickCheck').on('click', function() {
+        if($('#inputNick').val() === '') {
+          alert('닉네임을 입력해주세요.');
+          return;
+        }
+        $.get(`/nickCheck?nickName=${$('#inputNick').val()}`)
+        .done(function(data) {
+          console.log(data);
+        })
+      })
+
+      $('#idCheck').on('click', function() {
+        if($('#inputId').val() === '') {
+          alert('아이디를 입력해주세요.');
+          return;
+        }
+        $.get(`/idCheck?userId=${$('#inputId').val()}`)
+        .done(function(data) {
+          console.log(data);
+        })
+      })
+    })
+  </script>
+  <title>Sign Up</title>
+</head>
+<body>
+  <div class="container d-flex justify-content-center">
+    <form class="col-6 border rounded mt-5 p-5" method="post" action="/signUp">
+      <div class="h2 text-center mt-3">회원가입</div>
+
+      <div class="form-floating mt-3 d-flex">
+        <input type="text" class="form-control" id="inputNick" placeholder="닉네임을 입력하세요" name="nickName" autocomplete="off">
+        <label for="inputNick">닉네임을 입력하세요.</label>
+        <div class="col-auto ms-1">
+          <div class="btn btn-success h-100 align-items-center d-flex" id="nickCheck">중복확인</div>
+        </div>
+        
+      </div>
+
+      <div class="form-floating mt-3 d-flex">
+        <input type="text" class="form-control" id="inputId" placeholder="아이디를 입력하세요" name="id" autocomplete="off">
+        <label for="inputId">아이디를 입력하세요</label>
+        <div class="col-auto ms-1">
+          <div class="btn btn-success h-100 align-items-center d-flex" id="idCheck">중복확인</div>
+        </div>
+      </div>
+
+      <div class="form-floating mt-3">
+        <input type="password" class="form-control" id="inputPw" placeholder="비밀번호를 입력하세요" name="password" autocomplete="off">
+        <label for="inputPw">비밀번호를 입력하세요</label>
+      </div>
+      <div class="form-floating mt-3">
+        <input type="password" class="form-control" id="inputPwCheck" placeholder="비밀번호를 입력하세요" autocomplete="off">
+        <label for="inputPwCheck">비밀번호 확인</label>
+      </div>
+      <button class="btn btn-secondary container-fluid mt-3" type="submit">회원가입</button>
+    </form>
+  </div>
+</body>
+</html>
+
+<style>
+  div {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+  }
+</style>
